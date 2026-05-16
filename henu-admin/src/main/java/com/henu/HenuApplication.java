@@ -10,13 +10,11 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
  * @author henu
  */
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
-public class HenuApplication
-{
-    public static void main(String[] args)
-    {
+public class HenuApplication {
+    public static void main(String[] args) {
         // System.setProperty("spring.devtools.restart.enabled", "false");
         SpringApplication.run(HenuApplication.class, args);
-        System.out.println("项目启动成功\n" +
+        System.out.println("项目启动成功 \n" +
                 "  _    _  ______  _   _  _    _  \n" +
                 " | |  | ||  ____|| \\ | || |  | | \n" +
                 " | |__| || |__   |  \\| || |  | | \n" +
