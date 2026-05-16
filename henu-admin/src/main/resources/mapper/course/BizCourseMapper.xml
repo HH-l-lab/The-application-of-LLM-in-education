@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.henu.course.mapper.BizCourseMapper">
+    
+    <resultMap type="BizCourse" id="BizCourseResult">
+        <result property="courseId"    column="course_id"    />
+        <result property="courseTitle"    column="course_title"    />
+        <result property="creatorId"    column="creator_id"    />
+        <result property="videoUrl"    column="video_url"    />
+        <result property="courseType"    column="course_type"    />
+        <result property="price"    column="price"    />
+        <result property="coverImage"    column="cover_image"    />
+        <result property="auditStatus"    column="audit_status"    />
+        <result property="playCount"    column="play_count"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="courseSubject"    column="course_subject"    />
+        <result property="textbookEdition"    column="textbook_edition"    />
+        <result property="courseGrade"    column="course_grade"    />
+        <result property="courseChapter"    column="course_chapter"    />
+        <result property="experimentFormConfig"    column="experiment_form_config"    />
+    </resultMap>
+
+    <sql id="selectBizCourseVo">
+        select course_id, course_title, creator_id, video_url, course_type, price, cover_image, audit_status, play_count, del_flag, create_by, create_time, update_by, update_time, course_subject, textbook_edition, course_grade, course_chapter, experiment_form_config from biz_course
+    </sql>
+
+    <select id="selectBizCourseList" parameterType="BizCourse" resultMap="BizCourseResult">
+        <include refid="selectBizCourseVo"/>
+        <where>  
+            <if test="courseTitle != null  and courseTitle != ''"> and course_title = #{courseTitle}</if>
+            <if test="creatorId != null "> and creator_id = #{creatorId}</if>
+            <if test="courseType != null  and courseType != ''"> and course_type = #{courseType}</if>
+            <if test="price != null "> and price = #{price}</if>
+            <if test="coverImage != null  and coverImage != ''"> and cover_image = #{coverImage}</if>
+            <if test="auditStatus != null  and auditStatus != ''"> and audit_status = #{auditStatus}</if>
+            <if test="playCount != null "> and play_count = #{playCount}</if>
+            <if test="courseSubject != null  and courseSubject != ''"> and course_subject = #{courseSubject}</if>
+            <if test="textbookEdition != null  and textbookEdition != ''"> and textbook_edition = #{textbookEdition}</if>
+            <if test="courseGrade != null  and courseGrade != ''"> and course_grade = #{courseGrade}</if>
+            <if test="courseChapter != null  and courseChapter != ''"> and course_chapter = #{courseChapter}</if>
+        </where>
+    </select>
+    
+    <select id="selectBizCourseByCourseId" parameterType="Long" resultMap="BizCourseResult">
+        <include refid="selectBizCourseVo"/>
+        where course_id = #{courseId}
+    </select>
+
+    <insert id="insertBizCourse" parameterType="BizCourse" useGeneratedKeys="true" keyProperty="courseId">
+        insert into biz_course
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="courseTitle != null and courseTitle != ''">course_title,</if>
+            <if test="creatorId != null">creator_id,</if>
+            <if test="videoUrl != null and videoUrl != ''">video_url,</if>
+            <if test="courseType != null and courseType != ''">course_type,</if>
+            <if test="price != null">price,</if>
+            <if test="coverImage != null and coverImage != ''">cover_image,</if>
+            <if test="auditStatus != null and auditStatus != ''">audit_status,</if>
+            <if test="playCount != null">play_count,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="courseSubject != null and courseSubject != ''">course_subject,</if>
+            <if test="textbookEdition != null and textbookEdition != ''">textbook_edition,</if>
+            <if test="courseGrade != null and courseGrade != ''">course_grade,</if>
+            <if test="courseChapter != null">course_chapter,</if>
+            <if test="experimentFormConfig != null">experiment_form_config,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="courseTitle != null and courseTitle != ''">#{courseTitle},</if>
+            <if test="creatorId != null">#{creatorId},</if>
+            <if test="videoUrl != null and videoUrl != ''">#{videoUrl},</if>
+            <if test="courseType != null and courseType != ''">#{courseType},</if>
+            <if test="price != null">#{price},</if>
+            <if test="coverImage != null and coverImage != ''">#{coverImage},</if>
+            <if test="auditStatus != null and auditStatus != ''">#{auditStatus},</if>
+            <if test="playCount != null">#{playCount},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="courseSubject != null and courseSubject != ''">#{courseSubject},</if>
+            <if test="textbookEdition != null and textbookEdition != ''">#{textbookEdition},</if>
+            <if test="courseGrade != null and courseGrade != ''">#{courseGrade},</if>
+            <if test="courseChapter != null">#{courseChapter},</if>
+            <if test="experimentFormConfig != null">#{experimentFormConfig},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBizCourse" parameterType="BizCourse">
+        update biz_course
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="courseTitle != null and courseTitle != ''">course_title = #{courseTitle},</if>
+            <if test="creatorId != null">creator_id = #{creatorId},</if>
+            <if test="videoUrl != null and videoUrl != ''">video_url = #{videoUrl},</if>
+            <if test="courseType != null and courseType != ''">course_type = #{courseType},</if>
+            <if test="price != null">price = #{price},</if>
+            <if test="coverImage != null and coverImage != ''">cover_image = #{coverImage},</if>
+            <if test="auditStatus != null and auditStatus != ''">audit_status = #{auditStatus},</if>
+            <if test="playCount != null">play_count = #{playCount},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="courseSubject != null and courseSubject != ''">course_subject = #{courseSubject},</if>
+            <if test="textbookEdition != null and textbookEdition != ''">textbook_edition = #{textbookEdition},</if>
+            <if test="courseGrade != null and courseGrade != ''">course_grade = #{courseGrade},</if>
+            <if test="courseChapter != null">course_chapter = #{courseChapter},</if>
+            <if test="experimentFormConfig != null">experiment_form_config = #{experimentFormConfig},</if>
+        </trim>
+        where course_id = #{courseId}
+    </update>
+
+    <delete id="deleteBizCourseByCourseId" parameterType="Long">
+        delete from biz_course where course_id = #{courseId}
+    </delete>
+
+    <delete id="deleteBizCourseByCourseIds" parameterType="String">
+        delete from biz_course where course_id in 
+        <foreach item="courseId" collection="array" open="(" separator="," close=")">
+            #{courseId}
+        </foreach>
+    </delete>
+
+    <update id="incrementPlayCount" parameterType="Long">
+        update biz_course set play_count = IFNULL(play_count, 0) + 1 where course_id = #{courseId}
+    </update>
+
+    <select id="selectCourseCount" resultType="int">
+        select count(*) from biz_course
+    </select>
+
+    <select id="selectTotalPlayCount" resultType="Long">
+        select IFNULL(sum(play_count), 0) from biz_course
+    </select>
+
+    <select id="selectPlayCountByCreatorId" parameterType="Long" resultType="Long">
+        select IFNULL(sum(play_count), 0) from biz_course where creator_id = #{creatorId}
+    </select>
+
+    <select id="selectCourseCountByCreatorId" parameterType="Long" resultType="int">
+        select count(*) from biz_course where creator_id = #{creatorId}
+    </select>
+</mapper>

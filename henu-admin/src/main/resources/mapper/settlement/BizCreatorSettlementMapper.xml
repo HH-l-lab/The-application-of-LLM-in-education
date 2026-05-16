@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.henu.settlement.mapper.BizCreatorSettlementMapper">
+    
+    <resultMap type="BizCreatorSettlement" id="BizCreatorSettlementResult">
+        <result property="settlementId"    column="settlement_id"    />
+        <result property="creatorId"    column="creator_id"    />
+        <result property="orderId"    column="order_id"    />
+        <result property="profitAmount"    column="profit_amount"    />
+        <result property="settlementStatus"    column="settlement_status"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="settlementTime"    column="settlement_time"    />
+    </resultMap>
+
+    <sql id="selectBizCreatorSettlementVo">
+        select settlement_id, creator_id, order_id, profit_amount, settlement_status, create_time, settlement_time from biz_creator_settlement
+    </sql>
+
+    <select id="selectBizCreatorSettlementList" parameterType="BizCreatorSettlement" resultMap="BizCreatorSettlementResult">
+        <include refid="selectBizCreatorSettlementVo"/>
+        <where>  
+            <if test="creatorId != null "> and creator_id = #{creatorId}</if>
+            <if test="orderId != null "> and order_id = #{orderId}</if>
+            <if test="profitAmount != null "> and profit_amount = #{profitAmount}</if>
+            <if test="settlementStatus != null  and settlementStatus != ''"> and settlement_status = #{settlementStatus}</if>
+            <if test="settlementTime != null "> and settlement_time = #{settlementTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectBizCreatorSettlementBySettlementId" parameterType="Long" resultMap="BizCreatorSettlementResult">
+        <include refid="selectBizCreatorSettlementVo"/>
+        where settlement_id = #{settlementId}
+    </select>
+
+    <insert id="insertBizCreatorSettlement" parameterType="BizCreatorSettlement" useGeneratedKeys="true" keyProperty="settlementId">
+        insert into biz_creator_settlement
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="creatorId != null">creator_id,</if>
+            <if test="orderId != null">order_id,</if>
+            <if test="profitAmount != null">profit_amount,</if>
+            <if test="settlementStatus != null">settlement_status,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="settlementTime != null">settlement_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="creatorId != null">#{creatorId},</if>
+            <if test="orderId != null">#{orderId},</if>
+            <if test="profitAmount != null">#{profitAmount},</if>
+            <if test="settlementStatus != null">#{settlementStatus},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="settlementTime != null">#{settlementTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBizCreatorSettlement" parameterType="BizCreatorSettlement">
+        update biz_creator_settlement
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="creatorId != null">creator_id = #{creatorId},</if>
+            <if test="orderId != null">order_id = #{orderId},</if>
+            <if test="profitAmount != null">profit_amount = #{profitAmount},</if>
+            <if test="settlementStatus != null">settlement_status = #{settlementStatus},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="settlementTime != null">settlement_time = #{settlementTime},</if>
+        </trim>
+        where settlement_id = #{settlementId}
+    </update>
+
+    <delete id="deleteBizCreatorSettlementBySettlementId" parameterType="Long">
+        delete from biz_creator_settlement where settlement_id = #{settlementId}
+    </delete>
+
+    <delete id="deleteBizCreatorSettlementBySettlementIds" parameterType="String">
+        delete from biz_creator_settlement where settlement_id in 
+        <foreach item="settlementId" collection="array" open="(" separator="," close=")">
+            #{settlementId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.henu.message.mapper.BizUserMessageMapper">
+    
+    <resultMap type="BizUserMessage" id="BizUserMessageResult">
+        <result property="msgId"    column="msg_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="title"    column="title"    />
+        <result property="content"    column="content"    />
+        <result property="type"    column="type"    />
+        <result property="isRead"    column="is_read"    />
+        <result property="relatedId"    column="related_id"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectBizUserMessageVo">
+        select msg_id, user_id, title, content, type, is_read, related_id, create_time, create_by, update_time from biz_user_message
+    </sql>
+
+    <select id="selectBizUserMessageList" parameterType="BizUserMessage" resultMap="BizUserMessageResult">
+        <include refid="selectBizUserMessageVo"/>
+        <where>  
+            <if test="userId != null "> and user_id = #{userId}</if>
+            <if test="title != null  and title != ''"> and title = #{title}</if>
+            <if test="content != null  and content != ''"> and content = #{content}</if>
+            <if test="type != null  and type != ''"> and type = #{type}</if>
+            <if test="isRead != null  and isRead != ''"> and is_read = #{isRead}</if>
+            <if test="relatedId != null "> and related_id = #{relatedId}</if>
+        </where>
+    </select>
+    
+    <select id="selectBizUserMessageByMsgId" parameterType="Long" resultMap="BizUserMessageResult">
+        <include refid="selectBizUserMessageVo"/>
+        where msg_id = #{msgId}
+    </select>
+
+    <insert id="insertBizUserMessage" parameterType="BizUserMessage" useGeneratedKeys="true" keyProperty="msgId">
+        insert into biz_user_message
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">user_id,</if>
+            <if test="title != null and title != ''">title,</if>
+            <if test="content != null and content != ''">content,</if>
+            <if test="type != null">type,</if>
+            <if test="isRead != null">is_read,</if>
+            <if test="relatedId != null">related_id,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">#{userId},</if>
+            <if test="title != null and title != ''">#{title},</if>
+            <if test="content != null and content != ''">#{content},</if>
+            <if test="type != null">#{type},</if>
+            <if test="isRead != null">#{isRead},</if>
+            <if test="relatedId != null">#{relatedId},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBizUserMessage" parameterType="BizUserMessage">
+        update biz_user_message
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="content != null and content != ''">content = #{content},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="isRead != null">is_read = #{isRead},</if>
+            <if test="relatedId != null">related_id = #{relatedId},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where msg_id = #{msgId}
+    </update>
+
+    <delete id="deleteBizUserMessageByMsgId" parameterType="Long">
+        delete from biz_user_message where msg_id = #{msgId}
+    </delete>
+
+    <delete id="deleteBizUserMessageByMsgIds" parameterType="String">
+        delete from biz_user_message where msg_id in 
+        <foreach item="msgId" collection="array" open="(" separator="," close=")">
+            #{msgId}
+        </foreach>
+    </delete>
+</mapper>

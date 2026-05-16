@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.henu.extraction.mapper.BizVideoExtractionMapper">
+    
+    <resultMap type="BizVideoExtraction" id="BizVideoExtractionResult">
+        <result property="extractionId"    column="extraction_id"    />
+        <result property="courseId"    column="course_id"    />
+        <result property="asrText"    column="asr_text"    />
+        <result property="aiSummary"    column="ai_summary"    />
+        <result property="extractionStatus"    column="extraction_status"    />
+        <result property="createTime"    column="create_time"    />
+    </resultMap>
+
+    <sql id="selectBizVideoExtractionVo">
+        select extraction_id, course_id, asr_text, ai_summary, extraction_status, create_time from biz_video_extraction
+    </sql>
+
+    <select id="selectBizVideoExtractionList" parameterType="BizVideoExtraction" resultMap="BizVideoExtractionResult">
+        <include refid="selectBizVideoExtractionVo"/>
+        <where>  
+            <if test="courseId != null "> and course_id = #{courseId}</if>
+            <if test="asrText != null  and asrText != ''"> and asr_text = #{asrText}</if>
+            <if test="aiSummary != null  and aiSummary != ''"> and ai_summary = #{aiSummary}</if>
+            <if test="extractionStatus != null  and extractionStatus != ''"> and extraction_status = #{extractionStatus}</if>
+        </where>
+    </select>
+    
+    <select id="selectBizVideoExtractionByExtractionId" parameterType="Long" resultMap="BizVideoExtractionResult">
+        <include refid="selectBizVideoExtractionVo"/>
+        where extraction_id = #{extractionId}
+    </select>
+
+    <insert id="insertBizVideoExtraction" parameterType="BizVideoExtraction" useGeneratedKeys="true" keyProperty="extractionId">
+        insert into biz_video_extraction
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="courseId != null">course_id,</if>
+            <if test="asrText != null">asr_text,</if>
+            <if test="aiSummary != null">ai_summary,</if>
+            <if test="extractionStatus != null">extraction_status,</if>
+            <if test="createTime != null">create_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="courseId != null">#{courseId},</if>
+            <if test="asrText != null">#{asrText},</if>
+            <if test="aiSummary != null">#{aiSummary},</if>
+            <if test="extractionStatus != null">#{extractionStatus},</if>
+            <if test="createTime != null">#{createTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBizVideoExtraction" parameterType="BizVideoExtraction">
+        update biz_video_extraction
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="courseId != null">course_id = #{courseId},</if>
+            <if test="asrText != null">asr_text = #{asrText},</if>
+            <if test="aiSummary != null">ai_summary = #{aiSummary},</if>
+            <if test="extractionStatus != null">extraction_status = #{extractionStatus},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+        </trim>
+        where extraction_id = #{extractionId}
+    </update>
+
+    <delete id="deleteBizVideoExtractionByExtractionId" parameterType="Long">
+        delete from biz_video_extraction where extraction_id = #{extractionId}
+    </delete>
+
+    <delete id="deleteBizVideoExtractionByExtractionIds" parameterType="String">
+        delete from biz_video_extraction where extraction_id in 
+        <foreach item="extractionId" collection="array" open="(" separator="," close=")">
+            #{extractionId}
+        </foreach>
+    </delete>
+</mapper>

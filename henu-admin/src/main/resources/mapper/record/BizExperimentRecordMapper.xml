@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.henu.record.mapper.BizExperimentRecordMapper">
+    
+    <resultMap type="BizExperimentRecord" id="BizExperimentRecordResult">
+        <result property="recordId"    column="record_id"    />
+        <result property="studentId"    column="student_id"    />
+        <result property="courseId"    column="course_id"    />
+        <result property="experimentData"    column="experiment_data"    />
+        <result property="aiAnalysis"    column="ai_analysis"    />
+        <result property="reportUrl"    column="report_url"    />
+        <result property="score"    column="score"    />
+        <result property="status"    column="status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectBizExperimentRecordVo">
+        select record_id, student_id, course_id, experiment_data, ai_analysis, report_url, score, status, del_flag, create_time, update_time from biz_experiment_record
+    </sql>
+
+    <select id="selectBizExperimentRecordList" parameterType="BizExperimentRecord" resultMap="BizExperimentRecordResult">
+        <include refid="selectBizExperimentRecordVo"/>
+        <where>  
+            <if test="studentId != null "> and student_id = #{studentId}</if>
+            <if test="courseId != null "> and course_id = #{courseId}</if>
+            <if test="experimentData != null  and experimentData != ''"> and experiment_data = #{experimentData}</if>
+            <if test="aiAnalysis != null  and aiAnalysis != ''"> and ai_analysis = #{aiAnalysis}</if>
+            <if test="reportUrl != null  and reportUrl != ''"> and report_url = #{reportUrl}</if>
+            <if test="score != null "> and score = #{score}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectBizExperimentRecordByRecordId" parameterType="Long" resultMap="BizExperimentRecordResult">
+        <include refid="selectBizExperimentRecordVo"/>
+        where record_id = #{recordId}
+    </select>
+
+    <insert id="insertBizExperimentRecord" parameterType="BizExperimentRecord" useGeneratedKeys="true" keyProperty="recordId">
+        insert into biz_experiment_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="studentId != null">student_id,</if>
+            <if test="courseId != null">course_id,</if>
+            <if test="experimentData != null">experiment_data,</if>
+            <if test="aiAnalysis != null">ai_analysis,</if>
+            <if test="reportUrl != null">report_url,</if>
+            <if test="score != null">score,</if>
+            <if test="status != null">status,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="studentId != null">#{studentId},</if>
+            <if test="courseId != null">#{courseId},</if>
+            <if test="experimentData != null">#{experimentData},</if>
+            <if test="aiAnalysis != null">#{aiAnalysis},</if>
+            <if test="reportUrl != null">#{reportUrl},</if>
+            <if test="score != null">#{score},</if>
+            <if test="status != null">#{status},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBizExperimentRecord" parameterType="BizExperimentRecord">
+        update biz_experiment_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="studentId != null">student_id = #{studentId},</if>
+            <if test="courseId != null">course_id = #{courseId},</if>
+            <if test="experimentData != null">experiment_data = #{experimentData},</if>
+            <if test="aiAnalysis != null">ai_analysis = #{aiAnalysis},</if>
+            <if test="reportUrl != null">report_url = #{reportUrl},</if>
+            <if test="score != null">score = #{score},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where record_id = #{recordId}
+    </update>
+
+    <delete id="deleteBizExperimentRecordByRecordId" parameterType="Long">
+        delete from biz_experiment_record where record_id = #{recordId}
+    </delete>
+
+    <delete id="deleteBizExperimentRecordByRecordIds" parameterType="String">
+        delete from biz_experiment_record where record_id in 
+        <foreach item="recordId" collection="array" open="(" separator="," close=")">
+            #{recordId}
+        </foreach>
+    </delete>
+</mapper>

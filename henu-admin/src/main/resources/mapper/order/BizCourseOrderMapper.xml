@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.henu.order.mapper.BizCourseOrderMapper">
+    
+    <resultMap type="BizCourseOrder" id="BizCourseOrderResult">
+        <result property="orderId"    column="order_id"    />
+        <result property="orderNo"    column="order_no"    />
+        <result property="buyerId"    column="buyer_id"    />
+        <result property="courseId"    column="course_id"    />
+        <result property="amount"    column="amount"    />
+        <result property="payStatus"    column="pay_status"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="payTime"    column="pay_time"    />
+    </resultMap>
+
+    <sql id="selectBizCourseOrderVo">
+        select order_id, order_no, buyer_id, course_id, amount, pay_status, create_time, pay_time from biz_course_order
+    </sql>
+
+    <select id="selectBizCourseOrderList" parameterType="BizCourseOrder" resultMap="BizCourseOrderResult">
+        <include refid="selectBizCourseOrderVo"/>
+        <where>  
+            <if test="orderNo != null  and orderNo != ''"> and order_no = #{orderNo}</if>
+            <if test="buyerId != null "> and buyer_id = #{buyerId}</if>
+            <if test="courseId != null "> and course_id = #{courseId}</if>
+            <if test="amount != null "> and amount = #{amount}</if>
+            <if test="payStatus != null  and payStatus != ''"> and pay_status = #{payStatus}</if>
+            <if test="payTime != null "> and pay_time = #{payTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectBizCourseOrderByOrderId" parameterType="Long" resultMap="BizCourseOrderResult">
+        <include refid="selectBizCourseOrderVo"/>
+        where order_id = #{orderId}
+    </select>
+
+    <insert id="insertBizCourseOrder" parameterType="BizCourseOrder" useGeneratedKeys="true" keyProperty="orderId">
+        insert into biz_course_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderNo != null and orderNo != ''">order_no,</if>
+            <if test="buyerId != null">buyer_id,</if>
+            <if test="courseId != null">course_id,</if>
+            <if test="amount != null">amount,</if>
+            <if test="payStatus != null">pay_status,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="payTime != null">pay_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderNo != null and orderNo != ''">#{orderNo},</if>
+            <if test="buyerId != null">#{buyerId},</if>
+            <if test="courseId != null">#{courseId},</if>
+            <if test="amount != null">#{amount},</if>
+            <if test="payStatus != null">#{payStatus},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="payTime != null">#{payTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBizCourseOrder" parameterType="BizCourseOrder">
+        update biz_course_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderNo != null and orderNo != ''">order_no = #{orderNo},</if>
+            <if test="buyerId != null">buyer_id = #{buyerId},</if>
+            <if test="courseId != null">course_id = #{courseId},</if>
+            <if test="amount != null">amount = #{amount},</if>
+            <if test="payStatus != null">pay_status = #{payStatus},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="payTime != null">pay_time = #{payTime},</if>
+        </trim>
+        where order_id = #{orderId}
+    </update>
+
+    <delete id="deleteBizCourseOrderByOrderId" parameterType="Long">
+        delete from biz_course_order where order_id = #{orderId}
+    </delete>
+
+    <delete id="deleteBizCourseOrderByOrderIds" parameterType="String">
+        delete from biz_course_order where order_id in 
+        <foreach item="orderId" collection="array" open="(" separator="," close=")">
+            #{orderId}
+        </foreach>
+    </delete>
+</mapper>
