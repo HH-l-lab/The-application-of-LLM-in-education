@@ -1,4 +1,4 @@
-[Uploading README.md…]()
+[README.md](https://github.com/user-attachments/files/27997927/README.md)
 # 基于大语言模型的实验教学智能辅助与自动评价平台
 
 ## 项目简介
@@ -95,6 +95,7 @@ npm run dev
 ## 测试账号
 
 | 角色 | 用户名 | 密码 |
+|------|------|------|
 | 管理员 | HHad | 123456 | 
 | 创作者 | HH | 123456 | 
 | 学生用户 | HHstu | 123456 | 
