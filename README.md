@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
-[README.md](https://github.com/user-attachments/files/28000699/README.md)
->>>>>>> 3e2831c070ecdaef1348e587ebbaca29dbe4d280
+[README.md](https://github.com/user-attachments/files/28008363/README.md)
 # 基于大语言模型的实验教学智能辅助与自动评价平台
 
 ## 项目简介
