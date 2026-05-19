@@ -1,16 +1,24 @@
+[README.md](https://github.com/user-attachments/files/27997097/README.md)
 # 基于大语言模型的实验教学智能辅助与自动评价平台
 
 ## 项目简介
 
 本项目是一个基于 Spring Boot + Vue 的实验教学智能辅助与自动评价平台，集成了 DeepSeek 大语言模型和百度语音识别等 AI 能力，实现实验报告智能批改、语音转文字等功能。
 
+## 线上测试
+
+本项目已经通过阿里云服务器进行云端部署，可通过：http://39.102.119.198:81/来访问。
+
 ## 运行环境
-JDK ： 1.8 
-Maven ： 3.6+ 
-Node.js ： 12.x - 16.x 
-npm ： 6.x+ 
-MySQL ： 5.7+ / 8.0 
-Redis ： 5.0+ 
+
+| 技术栈 | 版本号 |
+|------|------|
+| JDK | 1.8 |
+| Maven | 3.6+ |
+| Node.js | 12.x-16.x |
+| npm | 6.x+ |
+| MySQL | 8.0 |
+| Redis | 5.0+ |
 
 ## 数据库初始化
 
@@ -79,8 +87,6 @@ mvn spring-boot:run
 
 ```bash
 cd henu-ui
-#下载前端依赖包
-npm install
 npm run dev
 ```
 
@@ -88,7 +94,10 @@ npm run dev
 
 ## 测试账号
 
-角色：管理员 用户名：HHad 密码：123456
+| 角色 | 用户名 | 密码 |
+| 管理员 | HHad | 123456 | 
+| 创作者 | HH | 123456 | 
+| 学生用户 | HHstu | 123456 | 
 
 ## 第三方 API 配置（可选）
 
