@@ -1,4 +1,4 @@
-[README.md](https://github.com/user-attachments/files/27997927/README.md)
+[README.md](https://github.com/user-attachments/files/28000699/README.md)
 # 基于大语言模型的实验教学智能辅助与自动评价平台
 
 ## 项目简介
@@ -11,14 +11,19 @@
 
 ## 运行环境
 
-| 技术栈 | 版本号 |
-|------|------|
-| JDK | 1.8 |
-| Maven | 3.6+ |
-| Node.js | 12.x-16.x |
-| npm | 6.x+ |
-| MySQL | 8.0 |
-| Redis | 5.0+ |
+| 开发环境项 | 系统名称/技术选型 | 版本/参数 |
+|------|------|------|
+| 编程语言 | Java(JDK) | 1.8.0_22 |
+| 后端框架 | SpringBoot | 2.5.15 |
+| 前端框架 | Vue.js/Element UI/EChart | 2.6.12/2.15.14/5.4.0 |
+| 数据库 | MySQL/Redis | 8.0/6.2 |
+| Web服务器 | Tomcat（Embeded） | 9.0.112 |
+| 推理引擎 | DeepSeek LLM API | V4 Chat/Reasoning |
+| 多媒体处理 | FFmpeg Toolset | 5.1 |
+| 项目管理 | Apache Maven | 3.9.1 |
+| 开发工具 | IntelliJ IDEA/VS Code |2023.2 Ultimate |
+| 测试环境 | Google Chrome/Edge | 120.0.x |
+| 部署服务器 | 阿里云云服务器 | 轻量2核2G-Ubuntu系统 |
 
 ## 数据库初始化
 
