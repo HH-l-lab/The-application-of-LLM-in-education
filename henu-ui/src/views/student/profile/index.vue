@@ -190,4 +190,12 @@ export default {
 .val-low { color: #f59e0b; }
 .m-label { font-size: 11px; color: #94a3b8; flex: 1; text-align: center; }
 .m-avg { font-size: 10px; color: #cbd5e1; min-width: 40px; text-align: right; }
+
+@media (max-width: 992px) {
+  .diag-page { padding: 16px; }
+  .diag-body .el-col { width: 100% !important; }
+  .chart-area { height: 260px; }
+  .section-card { padding: 16px; }
+  .grade-item { min-width: 45%; }
+}
 </style>

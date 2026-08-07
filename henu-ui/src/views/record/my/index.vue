@@ -227,4 +227,12 @@ export default {
     &:hover { color: #2563eb; text-decoration: underline; }
   }
 }
+
+@media (max-width: 992px) {
+  .my-exp-page { padding: 16px; }
+  .record-card { padding: 16px; }
+  .card-top-bar { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .card-body { grid-template-columns: 1fr; }
+  .filter-card { padding: 16px; }
+}
 </style>

@@ -353,4 +353,19 @@ export default {
   font-size: 12px;
   color: #94a3b8;
 }
+
+// 移动端适配：隐藏昵称文字腾出空间，面包屑允许收缩避免与右侧菜单挤压
+@media only screen and (max-width: 992px) {
+  .user-nickname {
+    display: none;
+  }
+  .breadcrumb-container {
+    flex-shrink: 1;
+    min-width: 0;
+    overflow: hidden;
+  }
+  .right-menu-item {
+    padding: 0 6px;
+  }
+}
 </style>

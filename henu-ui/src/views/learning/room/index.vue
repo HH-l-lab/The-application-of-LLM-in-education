@@ -205,7 +205,7 @@
             </div>
 
             <!-- 右侧AI智库聊天界面 -->
-            <div class="w-side-col" :class="{ 'is-hidden': !showChat }">
+            <div class="w-side-col" :class="{ 'is-hidden': !showChat, 'sheet-open': mobileChatOpen }">
               <!-- 收缩/展开控制按钮 -->
               <div class="chat-toggle-wrapper">
                 <button class="chat-toggle-btn" @click="showChat = !showChat" :title="showChat ? '收起 AI 导师' : '展开 AI 导师'">
@@ -255,6 +255,12 @@
             </div>
           </div>
 
+          <!-- 移动端：浮动 AI 按钮 + 抽屉遮罩 -->
+          <div class="sheet-backdrop" v-if="mobileChatOpen" @click="mobileChatOpen = false"></div>
+          <button class="mobile-ai-fab" :class="{ 'fab-open': mobileChatOpen }" @click="mobileChatOpen = !mobileChatOpen">
+            <i :class="mobileChatOpen ? 'el-icon-close' : 'el-icon-chat-dot-round'"></i>
+            <span v-if="!mobileChatOpen">AI 导师</span>
+          </button>
         </section>
       </transition>
     </main>
@@ -300,6 +306,7 @@ export default {
 
       // 工作台状态
       showChat: true,
+      mobileChatOpen: false,
       currentExperiment: { id: null, label: '', videoUrl: '', formFields: [] },
       experimentData: {},
       
@@ -546,6 +553,7 @@ export default {
     submitPrecheck() {
       if (!this.currentExperiment.id) return;
       this.showChat = true; // 自动展开AI聊天框
+      this.mobileChatOpen = true; // 移动端同时弹出底部抽屉
       
       // 构建带单位的数据字典
       const dataWithUnits = {};
@@ -1455,4 +1463,89 @@ export default {
 }
 .slide-down-enter-active { transition: all 0.3s ease-out; }
 .slide-down-enter, .slide-down-leave-to { opacity: 0; transform: translateY(-10px); }
+
+/* 移动端适配：视频为主，AI 聊天改为底部抽屉，浮动按钮唤起 */
+@media (max-width: 992px) {
+  .hero-title { font-size: 2rem; }
+  .hero-desc { font-size: 1rem; }
+  .hero-section { padding: 3rem 1rem 2.5rem; }
+  .main-content { padding: 0 1rem; margin-bottom: 2rem; }
+  .subject-tabs { flex-wrap: wrap; justify-content: center; }
+  .subject-tab { padding: 10px 18px; font-size: 15px; }
+  .filter-glass-card { padding: 16px; }
+  .search-bar-wrapper { width: 100% !important; }
+  .workspace-section { padding: 16px; border-radius: 18px; }
+  .workspace-header-card { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .workspace-grid,
+  .workspace-grid.chat-closed { grid-template-columns: 1fr !important; gap: 20px; }
+  .w-main-col { height: auto; }
+  .video-player,
+  .video-placeholder { height: 240px; }
+  .course-grid { grid-template-columns: 1fr; }
+  .premium-course-card { max-width: 100%; }
+  .form-grid { grid-template-columns: 1fr; }
+  .msg-bubble { max-width: 90%; }
+
+  /* AI 聊天：脱离文档流，作为底部抽屉，默认隐藏，.sheet-open 时滑出 */
+  .w-side-col {
+    position: fixed !important;
+    bottom: 0; left: 0; right: 0;
+    height: 72vh;
+    z-index: 1001;
+    padding: 0 10px;
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    &.sheet-open { transform: translateY(0); }
+    .chat-toggle-wrapper { display: none; }
+    .chat-glass-panel {
+      min-width: 0 !important;
+      height: 100%;
+      border-radius: 22px 22px 0 0;
+      box-shadow: 0 -10px 30px rgba(0,0,0,0.12);
+    }
+    .chat-header { position: relative; padding-top: 18px; }
+    .chat-header::before {
+      content: ''; position: absolute; top: 7px; left: 50%; transform: translateX(-50%);
+      width: 40px; height: 4px; border-radius: 2px; background: #cbd5e1;
+    }
+  }
+}
+
+/* 浮动 AI 按钮 + 抽屉遮罩：仅移动端显示 */
+.mobile-ai-fab { display: none; }
+.sheet-backdrop { display: none; }
+@media (max-width: 992px) {
+  .mobile-ai-fab {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    position: fixed;
+    right: 16px;
+    bottom: 24px;
+    z-index: 1002;
+    padding: 12px 22px;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    box-shadow: 0 8px 24px rgba(99,102,241,0.45);
+    cursor: pointer;
+    transition: bottom 0.35s, padding 0.2s, border-radius 0.2s;
+    i { font-size: 18px; }
+    &.fab-open {
+      bottom: calc(72vh + 12px);
+      padding: 10px;
+      border-radius: 50%;
+    }
+  }
+  .sheet-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.4);
+    z-index: 1000;
+  }
+}
 </style>

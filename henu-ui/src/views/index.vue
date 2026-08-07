@@ -305,5 +305,16 @@ export default {
 @media (max-width: 900px) {
   .welcome-banner { flex-direction: column; text-align: center; padding: 30px; .actions { justify-content: center; } }
   .feature-grid { grid-template-columns: 1fr; }
+  .stats-row .el-col { width: 50%; }
+  .stat-card { padding: 16px; }
+  .stat-icon-wrap { width: 42px; height: 42px; font-size: 20px; margin-right: 12px; }
+  .stat-number { font-size: 22px; }
+  .content-row .el-col { width: 100%; }
+  .welcome-image img { width: 140px; height: 140px; }
+  .dashboard-container { padding: 16px; }
+  .main-title { font-size: 26px; }
+}
+@media (max-width: 480px) {
+  .stats-row .el-col { width: 100%; }
 }
 </style>

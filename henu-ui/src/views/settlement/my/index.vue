@@ -201,4 +201,13 @@ export default {
   .amount-symbol { font-size: 14px; color: #10b981; font-weight: 600; margin-right: 2px; }
   .amount-value { font-size: 22px; font-weight: 800; color: #10b981; font-family: 'DIN', 'Consolas', monospace; }
 }
+
+@media (max-width: 992px) {
+  .my-revenue-page { padding: 16px; }
+  .summary-row .el-col { width: 100% !important; }
+  .summary-card { padding: 16px; }
+  .summary-card .s-value { font-size: 20px; }
+  .settle-card { flex-wrap: wrap; padding: 14px 16px; }
+  .filter-card { padding: 16px; }
+}
 </style>

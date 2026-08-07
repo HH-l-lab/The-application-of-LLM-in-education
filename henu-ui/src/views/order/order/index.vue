@@ -218,4 +218,14 @@ export default {
   .el-dialog__body { padding: 24px; }
 }
 ::v-deep .custom-dialog .el-input__inner { border-radius: 8px; border-color: #e2e8f0; &:focus { border-color: #f97316; box-shadow: 0 0 0 3px rgba(249,115,22,0.1); } }
+
+@media (max-width: 992px) {
+  .order-page { padding: 16px; }
+  .order-card { flex-direction: column; align-items: stretch; gap: 10px; padding: 16px; }
+  .card-left { margin-right: 0; }
+  .card-amount { margin: 0; }
+  .card-right { margin-left: 0; flex-direction: row; align-self: flex-start; }
+  .card-center .order-meta { flex-wrap: wrap; gap: 8px; }
+  .filter-card { padding: 16px; }
+}
 </style>

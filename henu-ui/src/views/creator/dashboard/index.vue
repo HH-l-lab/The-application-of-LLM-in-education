@@ -255,4 +255,21 @@ export default {
     width: 100%; display: flex; align-items: center; gap: 16px;
   }
 }
+
+/* 移动端适配：统计卡片 2 列、超小屏 1 列，收益卡按钮不再绝对定位溢出 */
+@media (max-width: 992px) {
+  .creator-dash { padding: 16px; }
+  .stats-row .el-col { width: 50%; }
+  .dash-card { padding: 16px; }
+  .dash-card .card-icon { width: 42px; height: 42px; font-size: 20px; margin-right: 12px; }
+  .dash-card .card-value { font-size: 20px; }
+  .card-sub { flex-wrap: wrap; gap: 6px; }
+  .settle-btn { position: static !important; display: inline-block; margin-top: 10px; }
+  .share-rate-card { padding: 16px; }
+  .share-rate-card .rate-number { font-size: 36px; }
+  .chart-card { padding: 16px; }
+}
+@media (max-width: 480px) {
+  .stats-row .el-col { width: 100%; }
+}
 </style>

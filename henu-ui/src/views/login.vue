@@ -207,4 +207,17 @@ export default {
   a { color: #a5b4fc; font-weight: 600; text-decoration: none; &:hover { color: #e0e7ff; } }
 }
 .auth-footer { position: fixed; bottom: 0; width: 100%; text-align: center; color: rgba(255,255,255,0.2); font-size: 12px; padding: 14px 0; z-index: 10; }
+
+// 移动端适配：卡片宽度自适应，避免 420px 在小屏溢出
+@media only screen and (max-width: 992px) {
+  .glass-card {
+    width: 92vw !important;
+    max-width: 420px;
+    padding: 28px 20px 24px;
+    border-radius: 18px;
+  }
+  .brand-title { font-size: 20px; letter-spacing: 2px; }
+  .brand-sub { font-size: 12px; }
+  .auth-footer { font-size: 11px; padding: 10px 0; }
+}
 </style>

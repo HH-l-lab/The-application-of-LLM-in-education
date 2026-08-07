@@ -1,0 +1,84 @@
+// 移动端响应式适配
+// 仅在 max-width: 992px 时生效（与 ResizeHandler.js 的断点一致），PC 端样式完全不受影响
+// 策略：只做覆盖性收紧，不改动任何 PC 端布局
+
+@media only screen and (max-width: 992px) {
+  // 内容区内边距收紧，腾出更多可用宽度（PC 端为 20px）
+  .app-container {
+    padding: 12px !important;
+  }
+
+  .components-container {
+    margin: 12px !important;
+  }
+
+  // 顶部搜索/过滤表单允许换行，避免输入框挤成一团
+  .el-form--inline {
+    display: flex !important;
+    flex-wrap: wrap;
+    .el-form-item {
+      margin-bottom: 12px;
+      margin-right: 8px;
+    }
+  }
+  .filter-container .filter-item {
+    margin-bottom: 12px;
+  }
+
+  // 表格横向滚动，列多时不再被挤压变形
+  .el-table .el-table__body-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  // 弹窗接近全屏，避免内容溢出屏幕
+  .el-dialog {
+    width: 92% !important;
+    margin-top: 8vh !important;
+  }
+  .el-dialog__body {
+    max-height: 68vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .el-dialog__footer {
+    padding: 10px 16px;
+  }
+
+  // 分页器紧凑：隐藏跳页与条数选择（手机上最占地方）
+  .el-pagination {
+    .el-pagination__jump,
+    .el-pagination__sizes {
+      display: none !important;
+    }
+    .el-pager li {
+      min-width: 28px;
+    }
+  }
+
+  // 卡片间距收紧
+  .el-card {
+    margin-bottom: 12px;
+  }
+
+  // 消息下拉框不超出屏幕
+  .msg-dropdown {
+    width: 86vw !important;
+    max-width: 320px;
+  }
+
+  // CRUD 页面标题栏：标题与操作按钮纵向堆叠，按钮换行（course/order/record 等 9 个页面通用）
+  .page-header {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px;
+    .header-actions {
+      display: flex !important;
+      flex-wrap: wrap;
+      gap: 8px;
+      .el-button {
+        margin-left: 0 !important;
+      }
+    }
+  }
+}
