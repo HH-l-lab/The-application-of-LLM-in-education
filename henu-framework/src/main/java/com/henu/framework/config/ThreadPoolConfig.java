@@ -2,6 +2,7 @@ package com.henu.framework.config;
 
 import com.henu.common.utils.Threads;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -18,16 +19,24 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class ThreadPoolConfig
 {
     // 核心线程池大小
-    private int corePoolSize = 50;
+    @Value("${threadpool.core-size:50}")
+    private int corePoolSize;
 
     // 最大可创建的线程数
-    private int maxPoolSize = 200;
+    @Value("${threadpool.max-size:200}")
+    private int maxPoolSize;
 
     // 队列最大长度
-    private int queueCapacity = 1000;
+    @Value("${threadpool.queue-capacity:1000}")
+    private int queueCapacity;
 
     // 线程池维护线程所允许的空闲时间
-    private int keepAliveSeconds = 300;
+    @Value("${threadpool.keep-alive-seconds:300}")
+    private int keepAliveSeconds;
+
+    // 定时任务线程池核心大小（独立配置，避免与异步线程池耦合）
+    @Value("${threadpool.scheduled.core-size:50}")
+    private int scheduledCoreSize;
 
     @Bean(name = "threadPoolTaskExecutor")
     public ThreadPoolTaskExecutor threadPoolTaskExecutor()
@@ -48,7 +57,7 @@ public class ThreadPoolConfig
     @Bean(name = "scheduledExecutorService")
     protected ScheduledExecutorService scheduledExecutorService()
     {
-        return new ScheduledThreadPoolExecutor(corePoolSize,
+        return new ScheduledThreadPoolExecutor(scheduledCoreSize,
                 new BasicThreadFactory.Builder().namingPattern("schedule-pool-%d").daemon(true).build(),
                 new ThreadPoolExecutor.CallerRunsPolicy())
         {

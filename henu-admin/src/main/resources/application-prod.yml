@@ -1,0 +1,35 @@
+# 生产环境覆盖配置（针对阿里云 2C2G 服务器调优）
+# 激活方式：启动时加 --spring.profiles.active=druid,prod
+# 本文件只覆盖与开发环境不同的项，其余继承 application.yml 与 application-druid.yml
+
+server:
+  tomcat:
+    # 2C2G 教学平台并发有限，降低线程数避免内存浪费（默认 800 线程栈即可吃掉数百 MB）
+    accept-count: 100
+    threads:
+      max: 200
+      min-spare: 10
+
+spring:
+  devtools:
+    restart:
+      # 生产环境关闭热部署
+      enabled: false
+
+logging:
+  level:
+    # 关闭全量 SQL 打印，降低 I/O 与磁盘压力
+    com.henu: info
+
+swagger:
+  # 生产环境关闭接口文档
+  enabled: false
+
+# 线程池调优（由 ThreadPoolConfig 读取，开发环境不配则用默认 50/200/1000）
+threadpool:
+  core-size: 8
+  max-size: 32
+  queue-capacity: 200
+  keep-alive-seconds: 60
+  scheduled:
+    core-size: 4
