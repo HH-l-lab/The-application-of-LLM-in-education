@@ -1,58 +1,35 @@
-######################################################################
-# Build Tools
-
-.gradle
-/build/
-!gradle/wrapper/gradle-wrapper.jar
-
+# ===== 构建产物 =====
 target/
-!.mvn/wrapper/maven-wrapper.jar
-
-######################################################################
-# IDE
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
-### JRebel ###
-rebel.xml
-
-### NetBeans ###
-nbproject/private/
-build/*
-nbbuild/
 dist/
-nbdist/
-.nb-gradle/
 
-######################################################################
-# Node
+# ===== 前端依赖 =====
 node_modules/
 package-lock.json
 
-######################################################################
-# IDE
+# ===== IDE / 编辑器 =====
+.idea/
+*.iml
+*.iws
+*.ipr
 .vscode/
-
-######################################################################
-# Others
-*.log
-*.xml.versionsBackup
+.classpath
+.project
+.settings
+.springBeans
+.apt_generated
+.factorypath
+rebel.xml
 *.swp
 
-!*/build/*.java
-!*/build/*.html
-!*/build/*.xml
+# ===== 操作系统 =====
+.DS_Store
+Thumbs.db
+desktop.ini
 
+# ===== 日志 & 运行时 =====
+*.log
+logs/
+
+# ===== 其他 =====
+*.versionsBackup
 bin/

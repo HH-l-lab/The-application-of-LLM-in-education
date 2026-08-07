@@ -13,7 +13,7 @@
 
 | 开发环境项 | 系统名称/技术选型 | 版本/参数 |
 |------|------|------|
-| 编程语言 | Java(JDK) | 1.8.0_22 |
+| 编程语言 | Java(JDK) | 17+（pom.xml 编译目标为 17，JDK 17/21/25 均可） |
 | 后端框架 | SpringBoot | 2.5.15 |
 | 前端框架 | Vue.js/Element UI/EChart | 2.6.12/2.15.14/5.4.0 |
 | 数据库 | MySQL/Redis | 8.0/6.2 |
@@ -82,7 +82,7 @@ npm install --registry=https://registry.npmmirror.com
 cd henu-admin
 mvn spring-boot:run
 
-# 方式二：在 IDE（IntelliJ IDEA）中运行
+# 方式二：在 IDE（IntelliJ IDEA / VS Code）中运行
 # 直接运行 henu-admin/src/main/java/com/henu/HenuApplication.java 的 main 方法
 ```
 
@@ -96,6 +96,19 @@ npm run dev
 ```
 
 前端服务默认端口：`80`，浏览器访问 http://localhost:80
+
+## 生产环境部署
+
+针对阿里云 2C2G 服务器内置了生产调优配置，部署时：
+
+1. 服务器上执行 `mvn clean package -DskipTests` 生成 `henu-admin/target/henu-admin.jar`。
+2. 用根目录的 `start.sh` 启动（已含 `-Xmx512m` 等 JVM 参数与 prod profile）：
+
+```bash
+bash start.sh
+```
+
+生产配置在 `henu-admin/src/main/resources/application-prod.yml`（覆盖 Tomcat 线程数、日志级别、关闭 Swagger 等）；本地开发无需改动，仍用默认 `application.yml`。
 
 ## 测试账号
 
